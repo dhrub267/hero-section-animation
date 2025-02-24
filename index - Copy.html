@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section Animation</title>
+    
+    <!-- Corrected Path for CSS -->
+    <link rel="stylesheet" href="html/styles.css">
+
+    <!-- Load GSAP (Use Local or CDN) -->
+    <script src="html/gsap.min.js"></script> 
+    <!-- If local GSAP doesn't work, use this CDN: -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script> -->
+
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="title">Welcome to Pha5e</h1>
+            <p class="subtitle">A new phase of digital experience.</p>
+        </div>
+        <div class="image-container">
+            <!-- Corrected Image Paths -->
+            <img src="html/image1.jpg" class="hero-image" id="image1" alt="Image 1">
+            <img src="html/image2.jpg" class="hero-image" id="image2" alt="Image 2">
+            <img src="html/image3.jpg" class="hero-image" id="image3" alt="Image 3">
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.from(".title", { opacity: 0, y: 50, duration: 1, ease: "power3.out" });
+            gsap.from(".subtitle", { opacity: 0, y: 50, duration: 1, delay: 0.3, ease: "power3.out" });
+            gsap.from(".hero-image", { opacity: 0, scale: 0.8, duration: 1, stagger: 0.3, ease: "power3.out" });
+        });
+
+        document.querySelectorAll(".hero-image").forEach(img => {
+            img.addEventListener("mouseover", () => {
+                gsap.to(img, { scale: 1.1, duration: 0.3, ease: "power2.out" });
+            });
+            img.addEventListener("mousemove", (e) => {
+                const { left, top, width, height } = img.getBoundingClientRect();
+                const x = ((e.clientX - left) / width - 0.5) * 30;
+                const y = ((e.clientY - top) / height - 0.5) * 30;
+                gsap.to(img, { x, y, duration: 0.3, ease: "power2.out" });
+            });
+            img.addEventListener("mouseleave", () => {
+                gsap.to(img, { x: 0, y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
+            });
+        });
+    </script>
+</body>
+</html>
